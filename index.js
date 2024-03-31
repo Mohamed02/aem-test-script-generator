@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const readline = require('readline');
 const fs = require('fs');
 const path = require('path');
@@ -8,7 +10,8 @@ const rl = readline.createInterface({
 });
 
 function createDirectoryStructure(componentName, variationList) {
-  const testFolderPath = path.join(__dirname, 'test');
+  const projectRoot = process.cwd();
+  const testFolderPath = path.join(projectRoot, 'test');
   const resourcesFolderPath = path.join(testFolderPath, 'resources');
   const mockDataFolderPath = path.join(resourcesFolderPath, 'mock-data');
   const modelDataFolderPath = path.join(resourcesFolderPath, 'model-data');
