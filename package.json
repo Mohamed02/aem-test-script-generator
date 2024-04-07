@@ -1,6 +1,6 @@
 {
   "name": "aem-test-script-generator",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "library to generate test scripts for aem spa components",
   "main": "index.js",
   "scripts": {
