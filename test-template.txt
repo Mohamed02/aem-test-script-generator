@@ -1,0 +1,42 @@
+import React from 'react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
+import { setupMockServer } from './server';
+import { readMockData, readModelData } from './util';
+// import targetComponent from './targetComponent'
+
+const variations = ${variationsArray};
+
+describe('${componentName}', ()=>{
+    variations.forEach(variation =>{
+        describe(`Variation: ${variation}`, ()=>{
+            let mockData;
+            let server;
+            const modelDataArray = readModelData(__dirname, variation);
+            modelDataArray.forEach((modelData, index)=>{
+                 describe(`Type: index`, () => {
+                        beforeAll(()=>{
+                            mockData = readMockData(__dirname, variation);
+                            server = setupMockServer(mockData);
+                            server.listen();
+                        });
+                        beforeAll(()=>{
+                            mockData = readMockData(__dirname, variation);
+                            server = setupMockServer(mockData);
+                            server.listen();
+                        });
+                        afterEach(() => server.resetHandlers());
+                        afterAll(() => server.close());
+                        
+                        test('renders component title', ()=>{
+                            // Add all asserstion here
+                            // expect(await screen.findByText(modelData.title)).toBeInTheDocument
+                        })
+                    });
+                
+
+            });
+
+        })
+        
+    })
+})

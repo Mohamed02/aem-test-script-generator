@@ -12,7 +12,8 @@ const rl = readline.createInterface({
 function createDirectoryStructure(componentName, variationList) {
   const projectRoot = process.cwd();
   const testFolderPath = path.join(projectRoot, 'test');
-  const resourcesFolderPath = path.join(testFolderPath, 'resources');
+  const componentTestFolderPath = path.join(testFolderPath, componentName);
+  const resourcesFolderPath = path.join(componentTestFolderPath, 'resources');
   const mockDataFolderPath = path.join(resourcesFolderPath, 'mock-data');
   const modelDataFolderPath = path.join(resourcesFolderPath, 'model-data');
 
@@ -27,7 +28,16 @@ function createDirectoryStructure(componentName, variationList) {
     fs.writeFileSync(path.join(modelDataFolderPath, modelJsonFileName), '{}');
   });
 
-  const testFileContent = `// Test file for ${componentName}\nconsole.log('Testing ${componentName}');`;
+  const testFileTemplatePath = path.join(__dirname, 'test-template.txt');
+  const testFileContentTemplate = fs.readFileSync(testFileTemplatePath, 'utf8');
+
+  const variationsArray = JSON.stringify(variationList.map(variation=>`${componentName}-${variation}`));
+
+  // Replace placeholders in the test file template with dynamic values
+    const testFileContent = testFileContentTemplate
+    .replace(/\${componentName}/g, componentName)
+    .replace(/\${variationsArray}/g, variationsArray);
+
   fs.writeFileSync(path.join(testFolderPath, `${componentName}.test.js`), testFileContent);
 
   console.log('Folder hierarchy created successfully!');
