@@ -1,2 +1,7 @@
 import {setupServer} from 'msw/node';
-import
+import {generateHandlers} from './handlers';
+
+export const setupMockServer  = function (mockData){
+    const handlers = generateHandlers(mockData);
+    return setupServer(...handlers);
+}

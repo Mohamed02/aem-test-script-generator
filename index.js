@@ -38,8 +38,16 @@ function createDirectoryStructure(componentName, variationList) {
     .replace(/\${componentName}/g, componentName)
     .replace(/\${variationsArray}/g, variationsArray);
 
-  fs.writeFileSync(path.join(testFolderPath, `${componentName}.test.js`), testFileContent);
+  fs.writeFileSync(path.join(componentTestFolderPath, `${componentName}.test.js`), testFileContent);
 
+
+  const mockServerContentPath = path.join(__dirname, 'server.txt');
+  const mockServerContent = fs.readFileSync(mockServerContentPath, 'utf8');
+  fs.writeFileSync(path.join(testFolderPath, `server.js`), mockServerContent);
+
+  const handlerContentPath = path.join(__dirname, 'handler.txt');
+  const handlerContent = fs.readFileSync(handlerContentPath, 'utf8');
+  fs.writeFileSync(path.join(testFolderPath, `handler.js`), handlerContent);
   console.log('Folder hierarchy created successfully!');
 }
 

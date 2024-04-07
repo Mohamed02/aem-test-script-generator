@@ -1,0 +1,9 @@
+import {http, HttpResponse} from 'msw';
+
+export const generateHandlers = function(mockData){
+    let handlers = [];
+    if(mockData){
+        handlers = [http.get(`${mockData.api}`, ()=>HttpResponse.json(mockData.response))]
+    }
+    return handlers;
+}
